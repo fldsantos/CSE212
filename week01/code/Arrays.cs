@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 public static class Arrays
 {
     /// <summary>
@@ -9,11 +11,16 @@ public static class Arrays
     public static double[] MultiplesOf(double number, int length)
     {
         // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // I will create a 'for' loop that does the value of 'length' iterations.
+        // Each iteration will push a number to the list, with the value 'number' * 'i'
+        // Finally, return the List's value
 
-        return []; // replace this return statement with your own
+        double[] multiples = new double[length];
+
+        for (int i = 1; i <= length; i++) {
+            multiples[i-1] = number * i;
+        }
+        return multiples; // replace this return statement with your own
     }
 
     /// <summary>
@@ -26,8 +33,16 @@ public static class Arrays
     public static void RotateListRight(List<int> data, int amount)
     {
         // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // I will slice the targeted range off the original list, and add it to the start of the list
+
+        List<int> slicedList = data.GetRange(data.Count-amount, amount);
+        data.RemoveRange(data.Count-amount, amount);
+        slicedList.AddRange(data);
+
+        data.Clear();
+        data.AddRange(slicedList);
+
+        Debug.WriteLine(String.Join(", ", data));
     }
+
 }

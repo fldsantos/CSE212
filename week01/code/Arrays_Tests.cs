@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // DO NOT MODIFY THIS FILE
@@ -43,6 +44,7 @@ public class RotateListRightTests
     {
         List<int> numbers = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         Arrays.RotateListRight(numbers, 5);
+        Debug.WriteLine(String.Join(", ", numbers));
         CollectionAssert.AreEqual(new List<int> { 5, 6, 7, 8, 9, 1, 2, 3, 4 }, numbers);
     }
 
