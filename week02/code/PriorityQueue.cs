@@ -1,4 +1,6 @@
-﻿public class PriorityQueue
+﻿using System.Diagnostics;
+
+public class PriorityQueue
 {
     private List<PriorityItem> _queue = new();
 
@@ -12,7 +14,24 @@
     public void Enqueue(string value, int priority)
     {
         var newNode = new PriorityItem(value, priority);
-        _queue.Add(newNode);
+        bool wasAdded = false;
+        int qSize = _queue.Count;
+
+        if(_queue.Count == 0) {
+            _queue.Insert(0, newNode);
+        } else {
+
+            for (int i = 0; i < qSize; i++) {
+                if (_queue[i].Priority == newNode.Priority) {
+                    _queue.Insert(i, newNode);
+                    wasAdded = true;
+                }
+             }
+
+             if(!wasAdded) {_queue.Add(newNode);}
+        }
+
+        Debug.WriteLine(String.Join(", ", _queue));
     }
 
     public string Dequeue()
@@ -22,16 +41,10 @@
             throw new InvalidOperationException("The queue is empty.");
         }
 
-        // Find the index of the item with the highest priority to remove
-        var highPriorityIndex = 0;
-        for (int index = 1; index < _queue.Count - 1; index++)
-        {
-            if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
-                highPriorityIndex = index;
-        }
-
         // Remove and return the item with the highest priority
-        var value = _queue[highPriorityIndex].Value;
+        var value = _queue[_queue.Count-1].Value;
+        _queue.RemoveAt(_queue.Count-1);
+        Debug.WriteLine(String.Join(", ", _queue));
         return value;
     }
 
